@@ -1,5 +1,5 @@
 url: https://mxcl.github.io/PromiseKit/
-permalink: /news/:year/:month/:title/
+permalink: news/:year/:month/:title/
 highlighter: rouge
 gems:
   - jekyll-redirect-from
