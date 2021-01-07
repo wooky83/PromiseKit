@@ -54,11 +54,11 @@ use `weak self` (and check for `self == nil`) to prevent any such side effects.
 should be protected against are in fact *not* side effects.
 
 Side effects include changes to global application state. They *do not* include
-changing the display state of a viewController. So, protect against setting UserDefaults or
+changing the display state of a view-controller. So, protect against setting `UserDefaults` or
 modifying the application database, and don't bother protecting against changing
 the text in a `UILabel`.
 
-[This stackoverflow question](https://stackoverflow.com/questions/39281214/should-i-use-weak-self-in-promisekit-blocks)
+[This StackOverflow question](https://stackoverflow.com/questions/39281214/should-i-use-weak-self-in-promisekit-blocks)
 has some good discussion on this topic.
 
 ## Do I need to retain my promises?
@@ -211,12 +211,12 @@ to a suitable problem, RxSwift can yield great benefits in robustness and simpli
 But not all applications are suitable for RxSwift. 
 
 By contrast, PromiseKit selectively applies the best parts of reactive programming
-to the hardest part of pure Swift development, the management of asynchrony. It's a broadly 
+to the hardest part of pure Swift development, the management of asynchronicity. It's a broadly 
 applicable tool. Most asynchronous code can be clarified, simplified and made more robust
 just by converting it to use promises. (And the conversion process is easy.)
 
 Promises make for code that is clear to most developers. RxSwift, perhaps not. Take a look at this 
-[signup panel](https://github.com/ReactiveX/RxSwift/tree/master/RxExample/RxExample/Examples/GitHubSignup)
+[sign-up panel](https://github.com/ReactiveX/RxSwift/tree/master/RxExample/RxExample/Examples/GitHubSignup)
 implemented in RxSwift and see what you think. (Note that this is one of RxSwift's own examples.)
 
 Even where PromiseKit and RxSwift are broadly similar, there are many differences in implementation:
@@ -244,7 +244,7 @@ deallocated. All promises yield a single value, terminate and then automatically
 
 You can find some additional discussion in [this ticket](https://github.com/mxcl/PromiseKit/issues/484).
 
-## Why can’t I return from a catch like I can in Javascript?
+## Why can’t I return from a catch like I can in JavaScript?
 
 Swift demands that functions have one purpose. Thus, we have two error handlers:
 
@@ -256,25 +256,35 @@ You want `recover`.
 ## When do promises “start”?
 
 Often people are confused about when Promises “start”. Is it immediately? Is it
-later? Is it when you call then?
+later? Is it when you call `then`?
 
-The answer is: promises do not choose when the underlying task they represent
-starts. That is up to that task. For example here is the code for a simple
-promise that wraps Alamofire:
-
+The answer is: The promise **body** executes during initialization of the promise, on the current thread.
+As an example, `"Executing the promise body"` will be printed to the console right after the promise is created,
+without having to call `then` on the promise.
 
 ```swift
-func foo() -> Promise<Any>
-    return Promise { seal in
-        Alamofire.request(rq).responseJSON { rsp in
-            seal.resolve(rsp.value, rsp.error)
-        }
+let testPromise = Promise<Bool> {
+    print("Executing the promise body.")
+    return $0.fulfill(true)
+}
+```
+
+But what about asynchronous tasks that you create in your promise's body? They behave the same way as they would
+without using PromiseKit. Here's a simple example:
+
+```swift
+let testPromise = Promise<Bool> { seal in
+    print("Executing the promise body.")
+    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+        print("Executing asyncAfter.")
+        return seal.fulfill(true)
     }
 }
 ```
 
-Who chooses when this promise starts? The answer is: Alamofire does, and in this
-case, it “starts” immediately when `foo()` is called.
+The message `"Executing the promise body."` is being logged right away, but the message `"Executing asyncAfter."`
+is only logged three seconds later. In this case `DispatchQueue` is responsible for deciding when to execute
+the task you pass to it, PromiseKit has nothing to do with it.
 
 ## What is a good way to use Firebase with PromiseKit
 
@@ -377,7 +387,7 @@ By default PromiseKit emits console messages when certain events occur.  These e
 - A promise has been deallocated without being fulfilled
 - An error which occurred while fulfilling a promise was swallowed using cauterize
 
-You may turn off or redirect this output by setting a thread safe closure in [PMKCOnfiguration](https://github.com/mxcl/PromiseKit/blob/master/Sources/Configuration.swift) **before** processing any promises. For example, to turn off console output:
+You may turn off or redirect this output by setting a thread safe closure in [PMKConfiguration](https://github.com/mxcl/PromiseKit/blob/master/Sources/Configuration.swift) **before** processing any promises. For example, to turn off console output:
 
 ```swift
 conf.logHandler = { event in }

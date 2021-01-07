@@ -33,9 +33,14 @@ pod used in many of the most popular apps in the world.
 
 [![codecov](https://codecov.io/gh/mxcl/PromiseKit/branch/master/graph/badge.svg)](https://codecov.io/gh/mxcl/PromiseKit)
 
-# PromiseKit 6 Released
+# PromiseKit 7 Alpha
 
-PromiseKit 6 has been released; [read the release notes and migration guide][PMK6].
+We are testing PromiseKit 7 alpha, it is Swift 5 only. It is tagged and thus
+importable in all package managers.
+
+# PromiseKit 6
+
+[Release notes and migration guide][PMK6].
 
 # Quick Start
 
@@ -52,17 +57,17 @@ end
 > The above gives an Xcode warning? See our [Installation Guide].
 
 PromiseKit 6, 5 and 4 support Xcode 8.3, 9.x and 10.0; Swift 3.1,
-3.2, 3.3, 3.4, 4.0, 4.1, 4.2 and 5.0 (development snapshots); iOS, macOS, tvOS,
-watchOS, Linux and Android; CocoaPods, Carthage and SwiftPM;
+3.2, 3.3, 3.4, 4.0, 4.1, 4.2, 4.3 and 5.0 (development snapshots); iOS, macOS,
+tvOS, watchOS, Linux and Android; CocoaPods, Carthage and SwiftPM;
 ([CI Matrix](https://travis-ci.org/mxcl/PromiseKit)).
 
-For Carthage, SwiftPM, etc., or for instructions when using older Swifts or
-Xcodes, see our [Installation Guide]. We 
-recommend [Carthage](https://github.com/Carthage/Carthage).
+For Carthage, SwiftPM, Accio, etc., or for instructions when using older Swifts or Xcodes, see our [Installation Guide]. We recommend
+[Carthage](https://github.com/Carthage/Carthage) or
+[Accio](https://github.com/JamitLabs/Accio).
 
 # Professionally Supported PromiseKit is Now Available
 
-Tidelift gives software development teams a single source for purchasing
+TideLift gives software development teams a single source for purchasing
 and maintaining their software, with professional grade assurances from
 the experts who know it best, while seamlessly integrating with existing
 tools.
@@ -72,15 +77,17 @@ tools.
 # PromiseKit is Thousands of Hours of Work
 
 Hey there, I’m Max Howell. I’m a prolific producer of open source software and
-probably you already use some of it (for example, I created [`brew`]). I work
-full-time on open source and it’s hard; currently *I earn less than minimum
-wage*. Please help me continue my work, I appreciate it 🙏🏻
+probably you already use some of it (I created [`brew`]). I work full-time on
+open source and it’s hard; currently *I earn less than minimum wage*. Please
+help me continue my work, I appreciate it 🙏🏻
 
 <a href="https://www.patreon.com/mxcl">
 	<img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
 </a>
 
-[Other ways to say thanks](http://mxcl.github.io/#donate).
+[Other ways to say thanks](http://mxcl.dev/#donate).
+
+[`brew`]: https://brew.sh
 
 # Documentation
 
@@ -93,7 +100,7 @@ wage*. Please help me continue my work, I appreciate it 🙏🏻
   * [Objective-C Guide](Documentation/ObjectiveC.md)
   * [Troubleshooting](Documentation/Troubleshooting.md) (e.g., solutions to common compile errors)
   * [Appendix](Documentation/Appendix.md)
-* [API Reference](https://mxcl.github.io/PromiseKit/reference/v6/Classes/Promise.html)
+* [API Reference](https://mxcl.dev/PromiseKit/reference/v6/Classes/Promise.html)
 
 # Extensions
 
@@ -170,20 +177,24 @@ Nowadays, considering that:
 * We almost always POST JSON
 * We now have `JSONDecoder`
 * PromiseKit now has `map` and other functional primitives
-* PromiseKit (like Alamofire, but not raw-URLSession) also defaults to having callbacks go to the main thread
+* PromiseKit (like Alamofire, but not raw-`URLSession`) also defaults to having
+    callbacks go to the main thread
 
-We recommend vanilla `URLSession`. It uses fewer black boxes and sticks closer to the
-metal. Alamofire was essential until the three bulletpoints above became true,
-but nowadays it isn’t really necessary.
+We recommend vanilla `URLSession`. It uses fewer black boxes and sticks closer to the metal. Alamofire was essential until the three bullet points above
+became true, but nowadays it isn’t really necessary.
 
 # Support
 
 Please check our [Troubleshooting Guide](Documentation/Troubleshooting.md), and
 if after that you still have a question, ask at our [Gitter chat channel] or on [our bug tracker].
 
+## Security & Vulnerability Reporting or Disclosure
+
+https://tidelift.com/security
+
 
 [badge-pod]: https://img.shields.io/cocoapods/v/PromiseKit.svg?label=version
-[badge-pms]: https://img.shields.io/badge/supports-CocoaPods%20%7C%20Carthage%20%7C%20SwiftPM-green.svg
+[badge-pms]: https://img.shields.io/badge/supports-CocoaPods%20%7C%20Carthage%20%7C%20Accio%20%7C%20SwiftPM-green.svg
 [badge-languages]: https://img.shields.io/badge/languages-Swift%20%7C%20ObjC-orange.svg
 [badge-platforms]: https://img.shields.io/badge/platforms-macOS%20%7C%20iOS%20%7C%20watchOS%20%7C%20tvOS%20%7C%20Linux-lightgrey.svg
 [badge-mit]: https://img.shields.io/badge/license-MIT-blue.svg
@@ -193,7 +204,7 @@ if after that you still have a question, ask at our [Gitter chat channel] or on 
 [Gitter chat channel]: https://gitter.im/mxcl/PromiseKit
 [our bug tracker]: https://github.com/mxcl/PromiseKit/issues/new
 [Podfile]: https://guides.cocoapods.org/syntax/podfile.html
-[PMK6]: http://mxcl.github.io/PromiseKit/news/2018/02/PromiseKit-6.0-Released/
+[PMK6]: http://mxcl.dev/PromiseKit/news/2018/02/PromiseKit-6.0-Released/
 [Installation Guide]: Documentation/Installation.md
 [badge-travis]: https://travis-ci.org/mxcl/PromiseKit.svg?branch=master
 [travis]: https://travis-ci.org/mxcl/PromiseKit
